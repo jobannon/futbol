@@ -40,4 +40,18 @@ class StatTrackerTest < Minitest::Test
   def test_lowest_total_score
     assert_equal 3 ,@stat_tracker.lowest_total_score
   end
+
+  def test_percentage_ties
+    assert_equal 20, @stat_tracker.percentage_ties
+  end
+
+  def test_percentage_visitor_wins
+    assert_equal 50 , @stat_tracker.percentage_visitor_wins
+  end
+
+  def test_percentage_home_wins
+    assert_equal 30, @stat_tracker.percentage_home_wins
+  end
+
+
 end

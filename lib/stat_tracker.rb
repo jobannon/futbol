@@ -36,7 +36,24 @@ class StatTracker
     @game_repo.games.min_by {|game| game.total_score}.total_score
   end
 
+  def percentage_ties
+    tied_games = @game_repo.games.find_all do |game|
+      game.away_goals == game.home_goals
+    end
+    (((tied_games.count).to_f / (@game_repo.games.count).to_f) * 100).round(100)
+  end
 
+  def percentage_visitor_wins
+    visitor_wins = @game_repo.games.find_all do |game|
+      game.away_goals > game.home_goals
+    end.count
+    (visitor_wins.to_f / (((@game_repo.games.count).to_f)) * 100).round(100)
+  end
 
-
+  def percentage_home_wins
+    home_wins = @game_repo.games.find_all do |game|
+      game.home_goals > game.away_goals
+    end.count
+    (home_wins.to_f / (((@game_repo.games.count).to_f)) * 100).round(100)
+  end
 end
