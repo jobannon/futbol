@@ -12,7 +12,7 @@ class GameCollection < Collection
     @all.length
   end
 
-  def find_count_of_game_by_season
+  def find_count_of_games_by_season
     games_per_season = Hash.new(0)
     @all.each {|game| games_per_season[game.season] += 1}
     games_per_season
@@ -31,14 +31,20 @@ class GameCollection < Collection
     @all.min_by {|game| game.total_score}.total_score
   end
 
-  def calculate_total_goals_by_season
+  def find_average_goals_by_season
+    find_total_goals_by_season.merge(find_count_of_games_by_season) do |season, goals, games|
+      (goals/games).round(2)
+    end
+  end
+
+  def find_total_goals_by_season
     @all.reduce(Hash.new(0)) do |acc, game|
       acc[game.season] += game.total_score.to_f
       acc
     end
   end
 
-  def calculate_goal_differences
+  def find_goal_differences
     @all.max_by {|game| game.game_goal_difference}.game_goal_difference
   end
 

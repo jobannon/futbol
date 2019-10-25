@@ -18,7 +18,7 @@ class StatTracker
   end
 
   def count_of_games_by_season
-    @game_repo.find_count_of_game_by_season
+    @game_repo.find_count_of_games_by_season
   end
 
   def average_goals_per_game
@@ -34,17 +34,11 @@ class StatTracker
   end
 
   def average_goals_by_season
-    total_goals_by_season.merge(count_of_games_by_season) do |season, total_goals, number_of_games|
-      (total_goals/number_of_games).round(2)
-    end
-  end
-
-  def total_goals_by_season
-    @game_repo.calculate_total_goals_by_season
+    @game_repo.find_average_goals_by_season
   end
 
   def biggest_blowout
-    @game_repo.calculate_goal_differences
+    @game_repo.find_goal_differences
   end
 
   def percentage_home_wins
