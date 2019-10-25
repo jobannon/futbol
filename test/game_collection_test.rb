@@ -10,7 +10,7 @@ class GameCollectionTest < Minitest::Test
   end
 
   def test_it_can_read_csv
-    assert_equal 10, @game_collection.games.count
+    assert_equal 10, @game_collection.all.count
   end
 
   def test_total_games
