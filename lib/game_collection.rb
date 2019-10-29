@@ -93,4 +93,54 @@ class GameCollection
     end
     number_of_away_games
   end
+
+  def find_total_home_score
+    total_home_score = Hash.new()
+    @games.each do |game|
+      home_team_id = game.home_team_id.to_i
+      if total_home_score.has_key?(home_team_id)
+        total_home_score[home_team_id] = total_home_score[home_team_id] + game.home_goals
+      else
+        total_home_score[home_team_id] = game.home_goals
+      end
+    end
+    total_home_score
+  end
+
+  def find_total_away_score
+    total_away_score = Hash.new()
+    @games.each do |game|
+      away_team_id = game.away_team_id.to_i
+      if total_away_score.has_key?(away_team_id)
+        total_away_score[away_team_id] = total_away_score[away_team_id] + game.away_goals
+      else
+        total_away_score[away_team_id] = game.away_goals
+      end
+    end
+    total_away_score
+  end
+
+  def find_average_home_goals_per_home_game
+    average_home_goals = Hash.new
+    total_home_score = find_total_home_score
+    total_home_games = find_number_of_home_games
+
+    total_home_score.each do |home_team_id, home_score|
+      total_games = total_home_games[home_team_id].to_f
+      average_home_goals[home_team_id] = (home_score / total_games).round(2)
+    end
+    average_home_goals
+  end
+
+  def find_average_away_goals_per_away_game
+    average_away_goals = Hash.new
+    total_away_score = find_total_away_score
+    total_away_games = find_number_of_away_games
+
+    total_away_score.each do |away_team_id, away_score|
+      total_games = total_away_games[away_team_id].to_f
+      average_away_goals[away_team_id] = (away_score / total_games).round(2)
+    end
+    average_away_goals
+  end
 end

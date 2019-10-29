@@ -27,4 +27,23 @@ class GameCollectionTest < Minitest::Test
     assert_equal expected, @game_collection.find_number_of_away_games
   end
 
+  def test_total_home_score
+    expected = {5 => 10, 1 => 3, 2 => 6, 3 => 4, 4 => 5}
+    assert_equal expected, @game_collection.find_total_home_score
+  end
+
+  def test_total_away_score
+    expected = {3 => 9, 2 => 8, 5 => 3, 1 => 5, 4 => 5}
+    assert_equal expected, @game_collection.find_total_away_score
+  end
+
+  def test_avg_home_score_per_home_game
+    expected = {5 => 5.0, 1 => 1.5, 2 => 3.0, 3 => 2.0, 4 => 2.5}
+    assert_equal expected, @game_collection.find_average_home_goals_per_home_game
+  end
+  
+  def test_avg_away_score_per_away_game
+    expected = {3 => 4.5, 2 => 2.67, 5 => 1.5, 1 => 2.5, 4 => 5}
+    assert_equal expected, @game_collection.find_average_away_goals_per_away_game
+  end
 end
