@@ -80,4 +80,17 @@ class GameCollection
     end
     number_of_home_games
   end
+
+  def find_number_of_away_games
+    number_of_away_games = Hash.new()
+    @games.each do |game|
+      away_team_id = game.away_team_id.to_i
+      if number_of_away_games.has_key?(away_team_id)
+        number_of_away_games[away_team_id] = number_of_away_games[away_team_id] + 1
+      else
+        number_of_away_games[away_team_id] = 1
+      end
+    end
+    number_of_away_games
+  end
 end
