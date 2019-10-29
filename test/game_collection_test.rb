@@ -21,4 +21,10 @@ class GameCollectionTest < Minitest::Test
     expected = {5 => 2, 1 => 2, 2 => 2, 3 => 2, 4 => 2}
     assert_equal expected, @game_collection.find_number_of_home_games
   end
+
+  def test_total_number_of_away_games
+    expected = {3 => 2, 2 => 3, 5 => 2, 1 => 2, 4 => 1}
+    assert_equal expected, @game_collection.find_number_of_away_games
+  end
+
 end

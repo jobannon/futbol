@@ -67,4 +67,17 @@ class GameCollection
     tied_games = @games.count {|game| game.tie_game?}.to_f
     (tied_games/total_games).round(2)
   end
+
+  def find_number_of_home_games
+    number_of_home_games = Hash.new()
+    @games.each do |game|
+      home_team_id = game.home_team_id.to_i
+      if number_of_home_games.has_key?(home_team_id)
+        number_of_home_games[home_team_id] = number_of_home_games[home_team_id] + 1
+      else
+        number_of_home_games[home_team_id] = 1
+      end
+    end
+    number_of_home_games
+  end
 end
