@@ -143,4 +143,11 @@ class GameCollection
     end
     average_away_goals
   end
+
+  def find_highest_average_home_score_per_home_game
+    avg_home_score_per_home_game = find_average_home_goals_per_home_game
+    highest_scoring_home_team = avg_home_score_per_home_game.max_by{|team_id, avg_home_score| avg_home_score}
+    highest_scoring_home_team[0]
+  end
+
 end

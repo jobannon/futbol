@@ -1,6 +1,7 @@
 require_relative './game_collection'
 require_relative './team_collection'
 
+
 class StatTracker
   attr_reader :game_repo, :team_repo
 
@@ -56,4 +57,10 @@ class StatTracker
   def count_of_teams
     @team_repo.total_teams
   end
+
+  def highest_scoring_home_team
+    highest_scoring_home_team_id = @game_repo.find_highest_average_home_score_per_home_game
+    @team_repo.find_team_name_by_id(highest_scoring_home_team_id)
+  end
+
 end

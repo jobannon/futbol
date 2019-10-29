@@ -41,9 +41,13 @@ class GameCollectionTest < Minitest::Test
     expected = {5 => 5.0, 1 => 1.5, 2 => 3.0, 3 => 2.0, 4 => 2.5}
     assert_equal expected, @game_collection.find_average_home_goals_per_home_game
   end
-  
+
   def test_avg_away_score_per_away_game
     expected = {3 => 4.5, 2 => 2.67, 5 => 1.5, 1 => 2.5, 4 => 5}
     assert_equal expected, @game_collection.find_average_away_goals_per_away_game
+  end
+
+  def test_it_finds_team_id_by_highest_avg_home_score_per_home_game
+    assert_equal 5, @game_collection.find_highest_average_home_score_per_home_game
   end
 end
