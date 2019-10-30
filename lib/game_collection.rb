@@ -9,7 +9,7 @@ class GameCollection
   end
 
   def create_games(csv_path)
-    csv = CSV.read("#{csv_path}", headers: true, header_converters: :symbol)
+    csv = CSV.read(csv_path, headers: true, header_converters: :symbol)
     csv.map {|row| Game.new(row)}
   end
 

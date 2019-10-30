@@ -75,4 +75,10 @@ class StatTrackerTest < Minitest::Test
   def test_winningest_team
     assert_equal "Atlanta United", @stat_tracker.winningest_team
   end
+
+  def test_average_win_percentage
+    assert_equal 0.75, @stat_tracker.average_win_percentage("1")
+    assert_equal 0.2, @stat_tracker.average_win_percentage("2")
+    assert_equal 0.25, @stat_tracker.average_win_percentage("3")
+  end
 end

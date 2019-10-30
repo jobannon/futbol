@@ -62,4 +62,8 @@ class StatTracker
     id = @game_teams_repo.winningest_team_id
     @team_repo.find_name_by_id(id)
   end
+
+  def average_win_percentage(team_id)
+    @game_teams_repo.win_percentage_for(team_id)
+  end
 end

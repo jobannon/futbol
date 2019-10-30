@@ -9,7 +9,7 @@ class TeamCollection
   end
 
   def create_teams(csv_path)
-    csv = CSV.read("#{csv_path}", headers: true, header_converters: :symbol)
+    csv = CSV.read(csv_path, headers: true, header_converters: :symbol)
     csv.map {|row| Team.new(row)}
   end
 
