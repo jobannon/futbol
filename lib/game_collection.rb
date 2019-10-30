@@ -88,16 +88,12 @@ class GameCollection
   end
 
   def count_of_all_wins_by_season_for(id)
-    all_games_by_season_for(id).reduce(Hash.new(0)) do |acc, games|
-      win_count = 0
-      games[1].each do |game|
-        if (game.home_team_id == id && game.home_team_win?)
-          win_count += 1
-        elsif (game.away_team_id == id && game.visitor_team_win?)
-          win_count += 1
-        end
+    all_games_by_season_for(id).reduce(Hash.new(0)) do |acc, (season, games)|
+      wins = games.count do |game|
+        (game.home_team_id == id && game.home_team_win?) ||
+        (game.away_team_id == id && game.visitor_team_win?)
       end
-      acc[games[0]] += win_count
+      acc[season] += wins
       acc
     end
   end
