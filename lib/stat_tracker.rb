@@ -66,4 +66,12 @@ class StatTracker
   def average_win_percentage(team_id)
     @game_teams_repo.win_percentage_for(team_id)
   end
+
+  def best_season(team_id)
+    @game_repo.highest_season_win_percentage_for(team_id)
+  end
+
+  def worst_season(team_id)
+    @game_repo.lowest_season_win_percentage_for(team_id)
+  end
 end
