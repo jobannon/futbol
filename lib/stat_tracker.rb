@@ -74,4 +74,12 @@ class StatTracker
   def worst_season(team_id)
     @game_repo.lowest_season_win_percentage_for(team_id)
   end
+
+  def most_goals_scored(team_id)
+    @game_teams_repo.most_goals_by(team_id)
+  end
+
+  def fewest_goals_scored(team_id)
+    @game_teams_repo.fewest_goals_by(team_id)
+  end
 end

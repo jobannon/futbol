@@ -60,4 +60,12 @@ class GameTeamCollection
       game_team.win?
     end
   end
+
+  def most_goals_by(id)
+    all_games_for(id).max_by {|game_team| game_team.goals}.goals
+  end
+
+  def fewest_goals_by(id)
+    all_games_for(id).min_by {|game_team| game_team.goals}.goals
+  end
 end

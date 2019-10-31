@@ -68,4 +68,12 @@ class GameTeamCollectioTest < MiniTest::Test
     assert_equal 0.2, @gameteam_collection.win_percentage_for("2")
     assert_equal 0.25, @gameteam_collection.win_percentage_for("3")
   end
+
+  def test_most_goals_by
+    assert_equal 5, @gameteam_collection.most_goals_by("4")
+  end
+
+  def test_fewest_goals_by
+    assert_equal 1, @gameteam_collection.fewest_goals_by("4")
+  end
 end
