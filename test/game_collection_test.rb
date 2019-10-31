@@ -92,6 +92,7 @@ class GameCollectionTest < Minitest::Test
   def test_it_offense_pair_averages
     expected = {"5"=>6.5, "3"=>6.5, "2"=>7.0, "1"=>4.0, "4"=>5.0}
     assert_equal expected, @game_collection.offense_pair_averages
+  end
 
   def test_highest_season_win_percentage
     assert_equal "20212022", @game_collection.highest_season_win_percentage_for("1")
