@@ -97,4 +97,12 @@ class StatTrackerTest < Minitest::Test
   def test_fewest_goals_by
     assert_equal 1, @stat_tracker.fewest_goals_scored("4")
   end
+
+  def test_biggest_team_blowout
+      assert_equal 4, @stat_tracker.biggest_team_blowout("5")
+  end
+
+  def test_worst_loss
+    assert_equal 4, @stat_tracker.worst_loss("5")
+  end
 end

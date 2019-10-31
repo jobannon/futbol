@@ -117,4 +117,22 @@ class GameCollection
       percentage
     end.first
   end
+
+  def biggest_goal_difference_by_winning_game(id)
+    @games.map do |game|
+      if (game.home_team_id == id && game.home_team_win?) ||
+        (game.away_team_id == id && game.visitor_team_win?)
+        game.game_goal_difference
+      end
+    end.compact.max
+  end
+
+  def biggest_goal_difference_by_losing_game(id)
+    @games.map do |game|
+      if (game.home_team_id == id && game.visitor_team_win?) ||
+        (game.away_team_id == id && game.home_team_win?)
+        game.game_goal_difference
+      end
+    end.compact.max
+  end
 end
