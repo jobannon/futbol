@@ -9,7 +9,7 @@ class GameTeamCollection
   end
 
   def create_game_teams(csv_path)
-    csv = CSV.read("#{csv_path}", headers: true, header_converters: :symbol)
+    csv = CSV.read(csv_path, headers: true, header_converters: :symbol)
     csv.map { |row| GameTeam.new(row) }
   end
 
@@ -41,5 +41,31 @@ class GameTeamCollection
     team_win_percentage.max_by do |game_team, percentage|
       percentage
     end.first
+  end
+
+  def win_percentage_for(id)
+    team_win_percentage.find do |team_id, win_percentage|
+      id == team_id
+    end.last
+  end
+
+  def all_games_for(id)
+    @game_teams.find_all do |game_team|
+      game_team.team_id == id
+    end
+  end
+
+  def all_wins_for(id)
+    all_games_for(id).find_all do |game_team|
+      game_team.win?
+    end
+  end
+
+  def most_goals_by(id)
+    all_games_for(id).max_by {|game_team| game_team.goals}.goals
+  end
+
+  def fewest_goals_by(id)
+    all_games_for(id).min_by {|game_team| game_team.goals}.goals
   end
 end

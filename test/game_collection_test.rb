@@ -16,4 +16,20 @@ class GameCollectionTest < Minitest::Test
   def test_total_games
     assert_equal 10, @game_collection.total_games
   end
+
+  def test_highest_season_win_percentage
+    assert_equal "20212022", @game_collection.highest_season_win_percentage_for("1")
+  end
+
+  def test_lowest_season_win_percentage
+    assert_equal "20202021", @game_collection.lowest_season_win_percentage_for("1")
+  end
+
+  def test_biggest_goal_difference_by_winning_game
+    assert_equal 4, @game_collection.biggest_goal_difference_by_winning_game("5")
+  end
+
+  def test_biggest_goal_difference_by_losing_game
+    assert_equal 4, @game_collection.biggest_goal_difference_by_losing_game("5")
+  end
 end

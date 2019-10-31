@@ -82,4 +82,32 @@ class StatTracker
     id = @game_teams_repo.winningest_team_id
     @team_repo.find_name_by_id(id)
   end
+
+  def average_win_percentage(team_id)
+    @game_teams_repo.win_percentage_for(team_id)
+  end
+
+  def best_season(team_id)
+    @game_repo.highest_season_win_percentage_for(team_id)
+  end
+
+  def worst_season(team_id)
+    @game_repo.lowest_season_win_percentage_for(team_id)
+  end
+
+  def most_goals_scored(team_id)
+    @game_teams_repo.most_goals_by(team_id)
+  end
+
+  def fewest_goals_scored(team_id)
+    @game_teams_repo.fewest_goals_by(team_id)
+  end
+
+  def biggest_team_blowout(team_id)
+    @game_repo.biggest_goal_difference_by_winning_game(team_id)
+  end
+
+  def worst_loss(team_id)
+    @game_repo.biggest_goal_difference_by_losing_game(team_id)
+  end
 end

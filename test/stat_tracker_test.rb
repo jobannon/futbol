@@ -91,4 +91,34 @@ class StatTrackerTest < Minitest::Test
   def test_winningest_team
     assert_equal "Atlanta United", @stat_tracker.winningest_team
   end
+
+  def test_average_win_percentage
+    assert_equal 0.75, @stat_tracker.average_win_percentage("1")
+    assert_equal 0.2, @stat_tracker.average_win_percentage("2")
+    assert_equal 0.25, @stat_tracker.average_win_percentage("3")
+  end
+
+  def test_best_season
+    assert_equal "20192020", @stat_tracker.best_season("3")
+  end
+
+  def test_worst_season
+    assert_equal "20212022", @stat_tracker.worst_season("3")
+  end
+
+  def test_most_goals_by
+    assert_equal 5, @stat_tracker.most_goals_scored("4")
+  end
+
+  def test_fewest_goals_by
+    assert_equal 1, @stat_tracker.fewest_goals_scored("4")
+  end
+
+  def test_biggest_team_blowout
+      assert_equal 4, @stat_tracker.biggest_team_blowout("5")
+  end
+
+  def test_worst_loss
+    assert_equal 4, @stat_tracker.worst_loss("5")
+  end
 end
