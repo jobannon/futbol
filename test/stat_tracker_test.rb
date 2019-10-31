@@ -87,11 +87,27 @@ class StatTrackerTest < Minitest::Test
   def test_lowest_scoring_visitor
     assert_equal "Chicago Red Stars", @stat_tracker.lowest_scoring_visitor
   end
-  
+
   def test_winningest_team
     assert_equal "Atlanta United", @stat_tracker.winningest_team
   end
 
+  def test_worst_offense
+    assert_equal "Atlanta United", @stat_tracker.worst_offense
+  end
+
+  def test_worst_defense
+    assert_equal "Montreal Impact", @stat_tracker.worst_defense
+  end
+
+  def test_best_offense
+    assert_equal "Montreal Impact", @stat_tracker.best_offense
+  end
+
+  def test_best_defense
+    assert_equal "Atlanta United", @stat_tracker.best_defense
+  end
+    
   def test_average_win_percentage
     assert_equal 0.75, @stat_tracker.average_win_percentage("1")
     assert_equal 0.2, @stat_tracker.average_win_percentage("2")

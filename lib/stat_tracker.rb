@@ -78,6 +78,30 @@ class StatTracker
     @team_repo.find_name_by_id(lowest_scoring_away_team_id)
   end
 
+  def worst_defense
+    worst_defense = @game_repo.defense_pair_averages.sort_by { |key, value| value }.last
+    id = worst_defense[0]
+    @team_repo.find_name_by_id(id)
+  end
+
+  def best_defense
+    best_defense = @game_repo.defense_pair_averages.sort_by { |key, value| value }.first
+    id = best_defense[0]
+    @team_repo.find_name_by_id(id)
+  end
+
+  def worst_offense
+    worst_offense = @game_repo.offense_pair_averages.sort_by { |key, value| value }.first
+    id = worst_offense[0]
+    @team_repo.find_name_by_id(id)
+  end
+
+  def best_offense
+    best_offense = @game_repo.offense_pair_averages.sort_by { |key, value| value }.last
+    id = best_offense[0]
+    @team_repo.find_name_by_id(id)
+  end
+
   def winningest_team
     id = @game_teams_repo.winningest_team_id
     @team_repo.find_name_by_id(id)
