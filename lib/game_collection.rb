@@ -134,6 +134,7 @@ class GameCollection
         game.game_goal_difference
       end
     end.compact.max
+  end
 
   def find_number_of_home_games
     number_of_home_games = Hash.new()
