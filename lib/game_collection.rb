@@ -168,4 +168,59 @@ class GameCollection
     lowest_scoring_away_team = avg_away_score_per_away_game.min_by{|team_id, avg_away_score| avg_away_score}
     lowest_scoring_away_team[0]
   end
+
+  def goals_scored_per_team
+    team_hash = Hash.new()
+    @games.each do |game|
+      team_hash[game.home_team_id] ||= Hash.new(0)
+      team_hash[game.home_team_id][:my_goals] += game.home_goals
+      team_hash[game.home_team_id][:their_goals] += game.away_goals
+
+      team_hash[game.away_team_id] ||= Hash.new(0)
+      team_hash[game.away_team_id][:my_goals] += game.away_goals
+      team_hash[game.away_team_id][:their_goals] += game.home_goals
+    end
+    team_hash
+  end
+
+  def find_goals_scored_against_a_team
+    list_of_goals_by_id = goals_scored_per_team
+      list_of_goals_by_id.each do |id, scores|
+        list_of_goals_by_id[id] = list_of_goals_by_id[id][:their_goals]
+      end
+      list_of_goals_by_id
+  end
+
+  def find_goals_scored_by_a_team
+    list_of_goals_by_id = goals_scored_per_team
+      list_of_goals_by_id.each do |id, scores|
+        list_of_goals_by_id[id] = list_of_goals_by_id[id][:my_goals]
+      end
+      list_of_goals_by_id
+  end
+
+  def defense_pair_averages
+    goals = find_goals_scored_against_a_team
+    total_games_played_by_team = (find_number_of_away_games.merge!(find_number_of_home_games))
+    averages = {}
+    goals.each do |team_id, goals_scored|
+      total_games_played_by_a_team = total_games_played_by_team[team_id]
+      avg = (goals_scored/total_games_played_by_a_team.to_f).round(2)
+      averages[team_id] = avg
+    end
+    averages
+  end
+
+  def offense_pair_averages
+    goals = find_goals_scored_by_a_team
+    total_games_played_by_team = (find_number_of_away_games.merge!(find_number_of_home_games))
+    averages = {}
+    goals.each do |team_id, goals_scored|
+      total_games_played_by_a_team = total_games_played_by_team[team_id]
+      avg = (goals_scored/total_games_played_by_a_team.to_f).round(2)
+      averages[team_id] = avg
+    end
+    averages
+  end
+
 end
