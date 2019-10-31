@@ -3,7 +3,6 @@ class Team
     :abbreviation,
     :stadium,
     :link
-    # :franchiseid
 
   def initialize(team_info)
     team_info.each do |key, value|

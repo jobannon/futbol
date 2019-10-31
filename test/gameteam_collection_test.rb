@@ -50,4 +50,30 @@ class GameTeamCollectioTest < MiniTest::Test
   def test_winningest_team_id
     assert_equal "1", @gameteam_collection.winningest_team_id
   end
+
+  def test_all_games_for
+    assert_equal 4, @gameteam_collection.all_games_for("1").count
+    assert_equal 5, @gameteam_collection.all_games_for("2").count
+    assert_equal 4, @gameteam_collection.all_games_for("3").count
+  end
+
+  def test_all_wins_for
+    assert_equal 3, @gameteam_collection.all_wins_for("1").count
+    assert_equal 1, @gameteam_collection.all_wins_for("2").count
+    assert_equal 1, @gameteam_collection.all_wins_for("3").count
+  end
+
+  def test_win_percentage_for
+    assert_equal 0.75, @gameteam_collection.win_percentage_for("1")
+    assert_equal 0.2, @gameteam_collection.win_percentage_for("2")
+    assert_equal 0.25, @gameteam_collection.win_percentage_for("3")
+  end
+
+  def test_most_goals_by
+    assert_equal 5, @gameteam_collection.most_goals_by("4")
+  end
+
+  def test_fewest_goals_by
+    assert_equal 1, @gameteam_collection.fewest_goals_by("4")
+  end
 end

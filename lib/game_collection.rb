@@ -9,7 +9,7 @@ class GameCollection
   end
 
   def create_games(csv_path)
-    csv = CSV.read("#{csv_path}", headers: true, header_converters: :symbol)
+    csv = CSV.read(csv_path, headers: true, header_converters: :symbol)
     csv.map {|row| Game.new(row)}
   end
 
@@ -19,13 +19,13 @@ class GameCollection
 
   def find_count_of_game_by_season
     games_per_season = Hash.new(0)
-      @games.each {|game| games_per_season[game.season] += 1}
-      games_per_season.sort.to_h
+    @games.each {|game| games_per_season[game.season] += 1}
+    games_per_season
   end
 
   def find_average_goals_per_game
     total_goals = @games.sum {|game| game.total_score}
-      (total_goals.to_f/total_games).round(2)
+    (total_goals.to_f/total_games).round(2)
   end
 
   def find_highest_total_score
@@ -68,6 +68,72 @@ class GameCollection
     (tied_games/total_games).round(2)
   end
 
+  def all_games_for(id)
+    @games.find_all do |game|
+      (game.home_team_id == id) || (game.away_team_id == id)
+    end
+  end
+
+  def all_games_by_season_for(id)
+    all_games_for(id).group_by do |game|
+      game.season
+    end
+  end
+
+  def count_of_all_games_by_season_for(id)
+    all_games_by_season_for(id).reduce({}) do |acc, (season, games)|
+      acc[season] = games.count
+      acc
+    end
+  end
+
+  def count_of_all_wins_by_season_for(id)
+    all_games_by_season_for(id).reduce(Hash.new(0)) do |acc, (season, games)|
+      wins = games.count do |game|
+        (game.home_team_id == id && game.home_team_win?) ||
+        (game.away_team_id == id && game.visitor_team_win?)
+      end
+      acc[season] += wins
+      acc
+    end
+  end
+
+  def win_percentage_by_season_for(id)
+    season_wins = count_of_all_wins_by_season_for(id)
+    season_games = count_of_all_games_by_season_for(id)
+    season_wins.merge(season_games) do |season, wins, games|
+      (wins.to_f / games).round(2)
+    end
+  end
+
+  def highest_season_win_percentage_for(id)
+    win_percentage_by_season_for(id).max_by do |season, percentage|
+      percentage
+    end.first
+  end
+
+  def lowest_season_win_percentage_for(id)
+    win_percentage_by_season_for(id).min_by do |season, percentage|
+      percentage
+    end.first
+  end
+
+  def biggest_goal_difference_by_winning_game(id)
+    @games.map do |game|
+      if (game.home_team_id == id && game.home_team_win?) ||
+        (game.away_team_id == id && game.visitor_team_win?)
+        game.game_goal_difference
+      end
+    end.compact.max
+  end
+
+  def biggest_goal_difference_by_losing_game(id)
+    @games.map do |game|
+      if (game.home_team_id == id && game.visitor_team_win?) ||
+        (game.away_team_id == id && game.home_team_win?)
+        game.game_goal_difference
+      end
+    end.compact.max
 
   def find_number_of_home_games
     number_of_home_games = Hash.new()
