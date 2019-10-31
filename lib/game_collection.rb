@@ -81,8 +81,8 @@ class GameCollection
   end
 
   def count_of_all_games_by_season_for(id)
-    all_games_by_season_for(id).reduce({}) do |acc, games|
-      acc[games[0]] = games[1].count
+    all_games_by_season_for(id).reduce({}) do |acc, (season, games)|
+      acc[season] = games.count
       acc
     end
   end
